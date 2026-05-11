@@ -1,5 +1,9 @@
 package de.limago.springcalculator.math;
 
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class CalculatorImpl implements Calculator {
 
 
