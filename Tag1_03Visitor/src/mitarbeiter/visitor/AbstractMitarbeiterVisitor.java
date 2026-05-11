@@ -13,4 +13,14 @@ public abstract class AbstractMitarbeiterVisitor implements MitarbeiterVisitor {
     public void visit(final Gehaltsempfaenger gehaltsempfaenger) {
         // Nop
     }
+
+    @Override
+    public void init() {
+        // nop
+    }
+
+    @Override
+    public void dispose() {
+        //NOP
+    }
 }

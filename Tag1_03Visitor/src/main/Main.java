@@ -4,6 +4,7 @@ import firma.Firma;
 import mitarbeiter.Gehaltsempfaenger;
 import mitarbeiter.Lohnempfaenger;
 import mitarbeiter.visitor.PrintVisitor;
+import mitarbeiter.visitor.StatitikVisitor;
 
 public class Main {
 
@@ -18,5 +19,6 @@ public class Main {
 
         //firma.print();
         firma.iterate(new PrintVisitor());
+        firma.iterate(new StatitikVisitor());
     }
 }
