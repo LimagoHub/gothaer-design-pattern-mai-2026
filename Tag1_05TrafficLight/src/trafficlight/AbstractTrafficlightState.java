@@ -21,4 +21,15 @@ public abstract class AbstractTrafficlightState implements TrafficlightState {
     public void nextColor() {
         throw new UnsupportedOperationException("Diese Methode macht hier keinen Sinn");
     }
+
+    @Override
+    public void switchOn() {
+        throw new UnsupportedOperationException("Diese Methode macht hier keinen Sinn");
+    }
+
+    @Override
+    public void switchOff() {
+        throw new UnsupportedOperationException("Diese Methode macht hier keinen Sinn");
+
+    }
 }

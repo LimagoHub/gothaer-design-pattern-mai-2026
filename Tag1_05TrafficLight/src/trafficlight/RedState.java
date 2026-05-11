@@ -1,6 +1,6 @@
 package trafficlight;
 
-public class RedState extends AbstractTrafficlightState {
+public class RedState extends AbstractTrafficLightColorState {
     public RedState(final Trafficlight trafficlight) {
         super(trafficlight);
     }
