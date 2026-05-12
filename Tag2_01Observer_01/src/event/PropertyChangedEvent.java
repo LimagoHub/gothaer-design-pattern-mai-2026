@@ -1,9 +1,7 @@
 package event;
 
-public class PropertyChangedEvent {
+public record PropertyChangedEvent(Object soure,String propertyName, Object oldValue, Object newValue) {
 
-    soure
-    propertyName
-    oldValue
-    newValue
+
+
 }

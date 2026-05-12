@@ -1,10 +1,13 @@
 package main;
 
+import event.PropertyChangedEvent;
+import event.PropertyChangedListener;
 import tiere.PigTooFatListener;
 import tiere.Schwein;
 import tiere.Tier;
 
-public class Main {
+public class Main implements PropertyChangedListener {
+
 
     private Metzger metzger = new Metzger();
     private Spediteur spediteur = new Spediteur();
@@ -14,12 +17,18 @@ public class Main {
 
     private void run() {
         Schwein piggy = new Schwein("Miss Piggy");
+        piggy.addPropertyChangedListener(this);
         piggy.addPigTooFatListerner(new SchweineMetzgerAdapter());
         piggy.addPigTooFatListerner(s->spediteur.fahren(s));
         piggy.addPigTooFatListerner(spediteur::fahren);
         for (int i = 0; i < 11; i++) {
             piggy.fuettern();
         }
+    }
+
+    @Override
+    public void propertyChanged(final PropertyChangedEvent event) {
+        System.out.println(event);
     }
 
     class SchweineMetzgerAdapter implements PigTooFatListener {
