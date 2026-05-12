@@ -1,27 +1,22 @@
 package command;
 
 import math.Calculator;
+import math.CalculatorMemento;
 
-public class AddCommand implements Command {
+public class AddCommand extends AbstractTransactionCommand {
 
+    private CalculatorMemento memento;
     private double value;
+
     @Override
     public void parse(final String[] tokens) {
         value = Double.parseDouble(tokens[1]);
     }
 
-    @Override
-    public void execute() {
+       @Override
+    protected void doAction() {
         Calculator.getInstance().add(value);
     }
 
-    @Override
-    public void undo() {
-        Calculator.getInstance().add(value);
-    }
 
-    @Override
-    public boolean isQuery() {
-        return false;
-    }
 }
