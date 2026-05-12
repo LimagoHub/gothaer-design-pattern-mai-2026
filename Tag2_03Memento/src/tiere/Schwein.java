@@ -4,7 +4,8 @@ package tiere;
 public class Schwein {
 
 
-     private String name;
+
+    private String name;
     private int gewicht;
 
 
@@ -44,5 +45,33 @@ public class Schwein {
         sb.append(", gewicht=").append(gewicht);
         sb.append('}');
         return sb.toString();
+    }
+
+    public SchweineMemento getMemento() {
+        return new MySchweinememento(name, gewicht);
+    }
+
+    public void setMemento(final SchweineMemento memento) {
+        MySchweinememento myMemento = (MySchweinememento) memento;
+        this.name = myMemento.getName();
+        this.gewicht = myMemento.getGewicht();
+    }
+
+    private static class MySchweinememento implements SchweineMemento {
+        private final String name;
+        private final int gewicht;
+
+        public MySchweinememento(final String name, final int gewicht) {
+            this.name = name;
+            this.gewicht = gewicht;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getGewicht() {
+            return gewicht;
+        }
     }
 }

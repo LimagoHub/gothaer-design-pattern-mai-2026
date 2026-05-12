@@ -1,19 +1,39 @@
 package command;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
+
 public class CommandHistory {
+
+
+    private final Deque<Command> undoStack = new ArrayDeque<Command>();
+    private final Deque<Command> redoStack = new ArrayDeque<Command>();
 
     public void addCommand(Command command) {
         if(command.isQuery()) return;
-        // Euer Kram
-        // Command merken
-        // redos leeren
+        redoStack.clear();
+        undoStack.push(command);
     }
 
     public void undo() {
-        System.out.println("Can't Undo");
+        if(undoStack.isEmpty())
+            System.out.println("Can't Undo");
+        else {
+            Command command = undoStack.pop();
+            command.undo();
+            redoStack.push(command);
+        }
     }
 
     public void redo() {
-        System.out.println("Can't Redo");
+        if(redoStack.isEmpty())
+            System.out.println("Can't Redo");
+        else {
+            Command command = redoStack.pop();
+            command.execute();
+            undoStack.push(command);
+
+        }
     }
 }
