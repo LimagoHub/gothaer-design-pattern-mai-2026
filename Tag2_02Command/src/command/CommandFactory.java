@@ -2,20 +2,28 @@ package command;
 
 public class CommandFactory {
 
+    private static final String PREFIX = "command.";
+    private static final String SUFFFIX = "Command";
+
+
     public static Command getCommand(String zeile) {
 
-        Command command = null;
-        String [] tokens = zeile.split(" ");
+        try {
+            String [] tokens = zeile.split(" ");
+            Command command = (Command) Class
+                    .forName(PREFIX + tokens[0]+SUFFFIX)
+                    .getConstructor()
+                    .newInstance();
 
-        if(tokens[0].equals("Add")){
-            command = new AddCommand();
             command.parse(tokens);
-        }
-        if(tokens[0].equals("Print")){
-            command = new PrintCommand();
-            command.parse(tokens);
+
+
+            return command;
+        } catch (Throwable t) {
+            System.out.println("Unbekannter Befehl: " + t.getMessage());
+            return null;
         }
 
-        return command;
+
     }
 }
