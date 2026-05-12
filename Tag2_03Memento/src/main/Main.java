@@ -14,7 +14,7 @@ public class Main {
         SchweineMemento m = schwein.getMemento();
         schwein.fuettern();
         System.out.println(schwein);
-        
+
         schwein.setMemento(m);
         System.out.println(schwein);
     }
