@@ -1,6 +1,6 @@
 package processor;
 
-public class LineCounter extends FileProcessor {
+public class LineCounter implements CharacterHandler {
     private int counter;
 
     @Override
@@ -9,7 +9,7 @@ public class LineCounter extends FileProcessor {
     }
 
     @Override
-    public void dipose() {
+    public void dispose() {
         System.out.println(counter);
     }
 

@@ -1,6 +1,6 @@
 package processor;
 
-public class CharacterCounter extends FileProcessor{
+public class CharacterCounter implements CharacterHandler {
 
     private int counter;
 
@@ -9,13 +9,15 @@ public class CharacterCounter extends FileProcessor{
         counter = 0;
     }
 
-    @Override
-    public void dipose() {
-        System.out.println(counter);
-    }
+
 
     @Override
     public void process(final char c) {
         counter++;
+    }
+
+    @Override
+    public void dispose() {
+        System.out.println(counter);
     }
 }

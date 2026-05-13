@@ -8,7 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        FileProcessor fp = new LineCounter();
+        FileProcessor fp = new FileProcessor();
+        fp.addHandler(new CharacterCounter());
+        fp.addHandler(new LineCounter());
         fp.run("./src/resources/eingabe.txt");
     }
 }
