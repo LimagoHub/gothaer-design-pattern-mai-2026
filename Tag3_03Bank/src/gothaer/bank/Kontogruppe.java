@@ -1,4 +1,6 @@
-package src.bank;
+package gothaer.bank;
+
+import gothaer.bank.visitor.BankVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,5 +22,8 @@ public class Kontogruppe extends AbstractBankNode {
     public void appendChild(final AbstractBankNode child) {
         child.setParent(this);
         children.add(child);
+    }
+    public void accept(BankVisitor visitor){
+        visitor.visit(this);
     }
 }

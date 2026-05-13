@@ -1,4 +1,6 @@
-package src.bank;
+package gothaer.bank;
+
+import gothaer.bank.visitor.BankVisitor;
 
 public class Konto extends AbstractBankNode {
 
@@ -24,5 +26,9 @@ public class Konto extends AbstractBankNode {
     public String toString() {
 
         return super.toString() + ", balance: " + balance;
+    }
+
+    public void accept(BankVisitor visitor){
+        visitor.visit(this);
     }
 }

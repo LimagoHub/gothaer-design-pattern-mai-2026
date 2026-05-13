@@ -1,11 +1,13 @@
-package src.bank;
+package gothaer.bank;
+
+import gothaer.bank.visitor.BankVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class AbstractBankNode implements Iterable<AbstractBankNode> {
+public abstract class AbstractBankNode implements Iterable<AbstractBankNode> {
 
     private AbstractBankNode parent =  null;
     private String label;
@@ -64,4 +66,11 @@ public class AbstractBankNode implements Iterable<AbstractBankNode> {
         }
     }
 
+    public abstract void accept(BankVisitor visitor);
+
+    public void iterate(BankVisitor visitor) {
+        visitor.init();
+        this.forEach(n->n.accept(visitor));
+        visitor.dispose();
+    }
 }

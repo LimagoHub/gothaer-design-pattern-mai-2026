@@ -1,9 +1,10 @@
-package src.main;
+package gothaer.main;
 
 
-import src.bank.AbstractBankNode;
-import src.bank.Konto;
-import src.bank.Kontogruppe;
+import gothaer.bank.AbstractBankNode;
+import gothaer.bank.Konto;
+import gothaer.bank.Kontogruppe;
+import gothaer.bank.visitor.PrintVisitor;
 
 import java.util.Iterator;
 
@@ -33,7 +34,7 @@ public class Main {
         Konto e2_4 = new Konto("e2_4",100);
         e1_2.appendChild(e2_4);
 
-        for(AbstractBankNode node : root) {
+        /*for(AbstractBankNode node : root) {
             System.out.println(node);
         }
 
@@ -41,6 +42,9 @@ public class Main {
         while(iterator.hasNext()) {
             System.out.println(iterator.next());
         }
+        */
+        root.iterate(new PrintVisitor());
+
     }
 
 
