@@ -43,7 +43,7 @@ public class Table implements AutoCloseable{
     }
 
     private void exchangeData() throws Exception{
-        for(int column = 0; column < columnCount; column++){
+        for(int column = 0; column < getColumnCount(); column++){
             getZeile().put(getColumnName(column), getResultSet().getString(getColumnName(column)));
         }
     }
