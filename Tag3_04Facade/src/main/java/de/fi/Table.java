@@ -1,40 +1,100 @@
 package de.fi;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.Serializable;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Table implements Closeable {
+public class Table implements AutoCloseable{
 
-    public Table(String sqlString) {
+    private final String CONNECTION_STRING = "jdbc:h2:c:/tmp/db/gothaer;AUTO_SERVER=TRUE";
+    private final String selectString;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+    private ResultSetMetaData resultSetMetaData = null;
+    private Map<String, String> zeile = null;
+    private int columnCount = -1;
+
+    public Table(final String selectString) {
+        this.selectString = selectString;
     }
 
 
-    // Anzahl der Spalten in der Tabelle
-    public int getColumnCount() throws Exception{
-        return 0;
-    }
 
-    // Columnname 0 basiert
     public String getColumnName(int i) throws Exception{
-        return null;
+        return getResultSetMetaData().getColumnName(i+1);
     }
 
-    // o basiert
-    public String getString(int i) throws Exception{
-        return null;
+    public String getString(int column) throws Exception{
+        return getString(getColumnName(column));
     }
 
     public String getString(String name) throws Exception{
-        return null;
+        return getZeile().get(name);
     }
 
     public boolean next() throws Exception{
+        boolean result = resultSet.next();
+        if(result) {
+            exchangeData();
+            return true;
+        }
         return false;
     }
 
-    @Override
-    public void close() throws IOException {
+    private void exchangeData() throws Exception{
+        for(int column = 0; column < columnCount; column++){
+            getZeile().put(getColumnName(column), getResultSet().getString(getColumnName(column)));
+        }
+    }
 
+    @Override
+    public void close() throws Exception {
+        if(resultSet != null) resultSet.close();
+        if(statement != null) statement.close();
+        if(connection != null) connection.close();
+    }
+
+    private Connection getConnection() throws Exception{
+        if(connection == null){
+            connection = DriverManager.getConnection(CONNECTION_STRING, "sa","");
+        }
+        return connection;
+    }
+
+    private Statement getStatement() throws Exception{
+        if(statement == null){
+            statement = getConnection().createStatement();
+        }
+        return statement;
+    }
+
+    private ResultSet getResultSet() throws Exception{
+        if(resultSet == null){
+            resultSet = getStatement().executeQuery(selectString);
+        }
+        return resultSet;
+    }
+
+    private ResultSetMetaData getResultSetMetaData() throws Exception{
+        if(resultSetMetaData == null){
+            resultSetMetaData = getResultSet().getMetaData();
+        }
+
+        return resultSetMetaData;
+    }
+
+    private Map<String, String> getZeile() {
+        if(zeile == null){
+            zeile = new HashMap<>();
+        }
+        return zeile;
+    }
+
+    public int getColumnCount() throws Exception{
+        if(columnCount == -1){
+            columnCount = getResultSetMetaData().getColumnCount();
+        }
+        return columnCount;
     }
 }

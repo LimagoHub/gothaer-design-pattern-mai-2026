@@ -11,7 +11,7 @@ public class App
     public static void main( String[] args ) throws Exception
     {
 
-        Connection con = DriverManager.getConnection("jdbc:h2:c:/tmp/db/gothaer;AUTO_SERVER=TRUE", "sa", "");
+        /*Connection con = DriverManager.getConnection("jdbc:h2:c:/tmp/db/gothaer;AUTO_SERVER=TRUE", "sa", "");
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from tbl_personen");
         ResultSetMetaData rsmd = rs.getMetaData();
@@ -29,6 +29,24 @@ public class App
 
         rs.close();
         stmt.close();
-        con.close();
+        con.close();*/
+
+
+        try(Table table = new Table("select * from tbl_personen")){
+
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                System.out.printf("%-40s", table.getColumnName(i));
+            }
+            System.out.println();
+            while(table.next()){
+                for( int i = 0; i < table.getColumnCount(); i++){
+                    System.out.printf("%-40s", table.getString(i));
+                }
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
