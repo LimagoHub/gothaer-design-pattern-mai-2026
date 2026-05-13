@@ -7,6 +7,8 @@ import composite.Node;
 public class Main {
 
     public static void main(String[] args) {
+
+        // Kontogruppe statt Node
         Node root = new Node("root");
 
         Node e1_1 = new Node("e1_1");
@@ -18,7 +20,7 @@ public class Main {
         Node e2_1 = new Node("e2_1");
         e1_1.appendChild(e2_1);
 
-
+        // Konto statt zusaetzlich saldo
         Leaf e2_2 = new Leaf("e2_2");
         e1_1.appendChild(e2_2);
 
